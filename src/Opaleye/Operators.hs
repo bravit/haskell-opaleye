@@ -250,9 +250,6 @@ inSelect c q = qj'
 -- Warning: making additional instances of this class can lead to broken code!
 class SqlIsJson a
 
-{-# DEPRECATED PGIsJson "Use SqlIsJson instead" #-}
-type PGIsJson = SqlIsJson
-
 instance SqlIsJson T.SqlJson
 instance SqlIsJson T.SqlJsonb
 
@@ -397,18 +394,3 @@ timestamptzAtTimeZone :: F.Field T.SqlTimestamptz
                       -> F.Field T.SqlText
                       -> F.Field T.SqlTimestamp
 timestamptzAtTimeZone = C.binOp HPQ.OpAtTimeZone
-
--- * Deprecated
-
-{-# DEPRECATED exists "Identical to 'restrictExists'.  Will be removed in version 0.8." #-}
-exists :: QueryArr a b -> QueryArr a ()
-exists = restrictExists
-
-{-# DEPRECATED notExists "Identical to 'restrictNotExists'.  Will be removed in version 0.8." #-}
-notExists :: QueryArr a b -> QueryArr a ()
-notExists = restrictNotExists
-
-{-# DEPRECATED inQuery "Identical to 'inSelect'.  Will be removed in version 0.8." #-}
-inQuery :: D.Default O.EqPP fields fields
-        => fields -> Query fields -> S.Select (F.Field T.SqlBool)
-inQuery = inSelect
